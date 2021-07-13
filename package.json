@@ -1,0 +1,35 @@
+{
+  "name": "node-delivery-service",
+  "version": "1.0.0",
+  "description": "Delivery service",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node ./src",
+    "start:dev": "nodemon ./src",
+    "test": "nodemon ./src/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wmdanor/NodeDeliveryService.git"
+  },
+  "author": "wmdanor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wmdanor/NodeDeliveryService/issues"
+  },
+  "homepage": "https://github.com/wmdanor/NodeDeliveryService#readme",
+  "devDependencies": {
+    "eslint": "^7.30.0",
+    "eslint-config-google": "^0.14.0",
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "bcrypt": "5.0.0",
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "joi": "^17.4.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.2",
+    "morgan": "^1.10.0"
+  }
+}
