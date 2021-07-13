@@ -1,6 +1,6 @@
 ﻿{
   "connectionStrings": {
-    "main": "mongodb+srv://main:main1@cluster0.5avs2.mongodb.net/hw2?retryWrites=true&w=majority"
+    "main": "mongodb+srv://main:main1@cluster0.5avs2.mongodb.net/NodeDeliveryService?retryWrites=true&w=majority"
   },
   "jwtSecretToken": "secret"
 }

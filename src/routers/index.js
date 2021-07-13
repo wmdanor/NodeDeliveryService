@@ -14,9 +14,6 @@ app.use(express.json());
 
 app.use('/api', apiRouter);
 
-// NUXT
-// app.use(nuxt.render);
-
 app.use((req, res, next) => {
   throw new NotFoundError('404, Resource not found');
 });
