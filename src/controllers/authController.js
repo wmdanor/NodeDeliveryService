@@ -37,7 +37,12 @@ const loginUser = async (req, res) => {
   }
 };
 
+const restorePassword = async (req, res) => {
+  // TODO
+};
+
 module.exports = {
   registerUser,
   loginUser,
+  restorePassword,
 };

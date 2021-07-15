@@ -3,7 +3,11 @@ const {
   driverAuthMiddleware,
   shipperAuthMiddleware,
 } = require('../middlewares/authMiddleware');
-const {asyncWrapper} = require('../utils/routerUtils');
+const {
+  asyncWrapper,
+  callForDriverWrapper,
+  callForShipperWrapper,
+} = require('../utils/routerUtils');
 const {
   getLoadsForShipper,
   getLoadsForDriver,
@@ -28,8 +32,8 @@ const loadsRouter = new express.Router();
 loadsRouter.get(
     '/',
     offsetLimitQueryValidator, loadStatusQueryValidator,
-    asyncWrapper(getLoadsForShipper),
-    asyncWrapper(getLoadsForDriver),
+    callForShipperWrapper(getLoadsForShipper),
+    callForDriverWrapper(getLoadsForDriver),
 );
 loadsRouter.post(
     '/',
@@ -50,8 +54,8 @@ loadsRouter.patch(
 
 loadsRouter.get(
     '/:id',
-    asyncWrapper(getLoadByIdForShipper),
-    asyncWrapper(getLoadByIdForDriver),
+    callForShipperWrapper(getLoadByIdForShipper),
+    callForDriverWrapper(getLoadByIdForDriver),
 );
 loadsRouter.put(
     '/:id',
