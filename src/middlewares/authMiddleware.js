@@ -2,6 +2,18 @@
 const {UnauthorizedError} = require('../utils/errors');
 const {jwtSecretToken} = require('../utils/staticData');
 
+const createRoleMiddleware = (role) => {
+  return (req, res, next) => {
+    if (req.user.role == role) {
+      next();
+    } else {
+      throw new UnauthorizedError(
+          `Role "${role}" required to access this resource.`,
+      );
+    }
+  };
+};
+
 const authMiddleware = (req, res, next) => {
   const {
     authorization,
@@ -21,7 +33,8 @@ const authMiddleware = (req, res, next) => {
     const tokenPayload = jwt.verify(token, jwtSecretToken);
     req.user = {
       userId: tokenPayload.userId,
-      username: tokenPayload.username,
+      email: tokenPayload.email,
+      role: tokenPayload.role,
     };
     next();
   } catch (err) {
@@ -31,4 +44,6 @@ const authMiddleware = (req, res, next) => {
 
 module.exports = {
   authMiddleware,
+  driverAuthMiddleware: createRoleMiddleware('DRIVER'),
+  shipperAuthMiddleware: createRoleMiddleware('SHIPPER'),
 };

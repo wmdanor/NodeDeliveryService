@@ -8,8 +8,8 @@ const {usersRouter} = require('./usersRouter');
 const apiRouter = new express.Router();
 
 apiRouter.use('/auth', authRouter);
-apiRouter.use('/notes', [authMiddleware], notesRouter);
-apiRouter.use('/users', [authMiddleware], usersRouter);
+apiRouter.use('/notes', authMiddleware, notesRouter);
+apiRouter.use('/users', authMiddleware, usersRouter);
 
 module.exports = {
   apiRouter,

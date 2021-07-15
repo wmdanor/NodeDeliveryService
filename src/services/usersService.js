@@ -3,11 +3,11 @@ const jwt = require('jsonwebtoken');
 const {jwtSecretToken} = require('../utils/staticData');
 const {ArgumentError} = require('../utils/errors');
 
-const {User} = require('../models/userModel');
+const User = require('../models/user');
 
-const addUser = async ({username, password}) => {
+const addUser = async ({email, password}) => {
   const user = new User({
-    username,
+    email,
     passwordHash: await bcrypt.hash(password, 10),
   });
 
@@ -35,23 +35,22 @@ const updateUserPassword = async (userId, {oldPassword, newPassword}) => {
   }});
 };
 
-const getUserToken = async ({username, password}) => {
-  const user = await User.findOne({username});
+const getUserToken = async ({email, password}) => {
+  const user = await User.findOne({email});
 
   if (!user) {
-    throw new ArgumentError('Invalid username or password', 'username');
+    throw new ArgumentError('Invalid email or password', 'email');
   }
 
   if (!(await bcrypt.compare(password, user.passwordHash))) {
-    throw new ArgumentError('Invalid username or password', 'password');
+    throw new ArgumentError('Invalid email or password', 'password');
   }
 
-  const token = jwt.sign({
+  return jwt.sign({
     userId: user._id,
-    username: user.username,
+    email: user.email,
+    role: user.role,
   }, jwtSecretToken);
-
-  return token;
 };
 
 module.exports = {

@@ -3,15 +3,23 @@
   createQueryValidator,
 } = require('./createValidator');
 const {
-  signUpIn,
-  changePassword,
   offsetLimit,
-  notePayload,
+  loadStatus,
+  signUp,
+  signIn,
+  forgotPassword,
+  changePassword,
+  postPutTruck,
+  postPutLoad,
 } = require('./schemas');
 
 module.exports = {
-  signUpInValidator: createBodyValidator(signUpIn),
-  changePasswordValidator: createBodyValidator(changePassword),
   offsetLimitQueryValidator: createQueryValidator(offsetLimit),
-  notePayloadValidator: createBodyValidator(notePayload),
+  loadStatusQueryValidator: createQueryValidator(loadStatus),
+  signUpValidator: createBodyValidator(signUp),
+  signInValidator: createBodyValidator(signIn),
+  forgotPasswordValidator: createBodyValidator(forgotPassword),
+  changePasswordValidator: createBodyValidator(changePassword),
+  postPutTruckValidator: createBodyValidator(postPutTruck),
+  postPutLoadValidator: createBodyValidator(postPutLoad),
 };
