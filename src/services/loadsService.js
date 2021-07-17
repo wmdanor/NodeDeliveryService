@@ -4,5 +4,16 @@ const method = async () => {
 };
 
 module.exports = {
-  method,
+  getLoadsByShipperId,
+  getLoadsByDriverId,
+  addLoad,
+  getActiveLoadByDriverId,
+  setActiveLoadStateByDriverId,
+  setLoadStatus,
+  getLoadByShipperId,
+  getLoadByDriverId,
+  updateLoadByShipperId,
+  deleteLoadByShipperId,
+
+  // postLoadByShipperId,
 };

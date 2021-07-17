@@ -1,6 +1,6 @@
 ﻿const Truck = require('../models/truck');
 
-const getTrucksByUserId = async (userId) => {
+const getTrucksByDriverId = async (userId) => {
   // TODO
 };
 
@@ -8,28 +8,28 @@ const addTruck = async ({userId, type}) => {
   // TODO
 };
 
-const getTruckByUserId = async (id, userId) => {
+const getTruckByDriverId = async (id, userId) => {
   // TODO
 };
 
-const updateTruckByUserId = async (id, userId, {type}) => {
+const updateTruckByDriverId = async (id, userId, {type}) => {
   // TODO
 };
 
-const deleteTruckByUserId = async (id, userId) => {
+const deleteTruckByDriverId = async (id, userId) => {
   // TODO
 };
 
 // TODO: only one truck can be assigned to a user, so previous one must be unassigned
-const assignTruckByUserId = async (id, userId) => {
+const assignTruckByDriverId = async (id, userId) => {
   // TODO
 };
 
 module.exports = {
-  getTrucksByUserId,
+  getTrucksByDriverId,
   addTruck,
-  getTruckByUserId,
-  updateTruckByUserId,
-  deleteTruckByUserId,
-  assignTruckByUserId,
+  getTruckByDriverId,
+  updateTruckByDriverId,
+  deleteTruckByDriverId,
+  assignTruckByDriverId,
 };

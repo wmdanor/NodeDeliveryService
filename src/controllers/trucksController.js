@@ -1,12 +1,12 @@
 ﻿const {BadRequestError} = require('../utils/errors');
 const {
-  getTrucksByUserId,
+  getTrucksByDriverId,
   addTruck,
-  getTruckByUserId,
-  updateTruckByUserId,
-  deleteTruckByUserId,
-  assignTruckByUserId,
-} = require('');
+  getTruckByDriverId,
+  updateTruckByDriverId,
+  deleteTruckByDriverId,
+  assignTruckByDriverId,
+} = require('../services/trucksService');
 
 const mapTruck = (truck) => {
   return {
@@ -22,7 +22,7 @@ const mapTruck = (truck) => {
 const getTrucksForDriver = async (req, res) => {
   const {userId} = req.user;
 
-  const trucks = await getTrucksByUserId(userId);
+  const trucks = await getTrucksByDriverId(userId);
   const mappedTrucks = [];
 
   trucks.forEach((truck) => {
@@ -49,7 +49,7 @@ const getTruckByIdForDriver = async (req, res) => {
   const {userId} = req.user;
   const {id} = req.params;
 
-  const truck = await getTruckByUserId(id, userId);
+  const truck = await getTruckByDriverId(id, userId);
 
   if (!truck) {
     throw new BadRequestError('Truck with such id not found.');
@@ -64,7 +64,7 @@ const updateTruckByIdForDriver = async (req, res) => {
   const {userId} = req.user;
   const {id} = req.params;
 
-  await updateTruckByUserId(id, userId, req.body);
+  await updateTruckByDriverId(id, userId, req.body);
 
   res.json({
     message: 'Truck details changed successfully',
@@ -75,7 +75,7 @@ const deleteTruckByIdForDriver = async (req, res) => {
   const {userId} = req.user;
   const {id} = req.params;
 
-  await deleteTruckByUserId(id, userId);
+  await deleteTruckByDriverId(id, userId);
 
   res.json({
     message: 'Truck deleted successfully',
@@ -86,7 +86,7 @@ const assignTruckByIdForDriver = async (req, res) => {
   const {userId} = req.user;
   const {id} = req.params;
 
-  await assignTruckByUserId(id, userId);
+  await assignTruckByDriverId(id, userId);
 
   res.json({
     message: 'Truck assigned successfully',
