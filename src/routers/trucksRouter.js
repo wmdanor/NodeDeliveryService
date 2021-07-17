@@ -2,7 +2,7 @@
 const {driverAuthMiddleware} = require('../middlewares/authMiddleware');
 const {asyncWrapper} = require('../utils/routerUtils');
 const {
-  getTrucksForUser,
+  getTrucksForDriver,
   addTruckForDriver,
   getTruckByIdForDriver,
   updateTruckByIdForDriver,
@@ -15,7 +15,7 @@ const {
 
 const trucksRouter = new express.Router();
 
-trucksRouter.get('/', driverAuthMiddleware, asyncWrapper(getTrucksForUser));
+trucksRouter.get('/', driverAuthMiddleware, asyncWrapper(getTrucksForDriver));
 trucksRouter.post(
     '/',
     driverAuthMiddleware, postPutTruckValidator,
