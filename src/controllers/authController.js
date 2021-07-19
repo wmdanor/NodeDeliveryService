@@ -26,7 +26,6 @@ const loginUser = async (req, res) => {
     const token = await getUserToken({email, password});
 
     res.json({
-      message: 'Success',
       jwt_token: token,
     });
   } catch (err) {

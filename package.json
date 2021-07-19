@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./src",
     "start:dev": "nodemon ./src",
-    "test": "nodemon ./src/test.js"
+    "test": "nodemon ./src/test.js",
+    "dropdb": "node ./src/dropTables.js"
   },
   "repository": {
     "type": "git",
