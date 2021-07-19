@@ -2,14 +2,16 @@
 
 const {authMiddleware} = require('../middlewares/authMiddleware');
 const {authRouter} = require('./authRouter');
-const {notesRouter} = require('./notesRouter');
 const {usersRouter} = require('./usersRouter');
+const {trucksRouter} = require('./trucksRouter');
+const {loadsRouter} = require('./loadsRouter');
 
 const apiRouter = new express.Router();
 
 apiRouter.use('/auth', authRouter);
-apiRouter.use('/notes', authMiddleware, notesRouter);
 apiRouter.use('/users', authMiddleware, usersRouter);
+apiRouter.use('/trucks', authMiddleware, trucksRouter);
+apiRouter.use('/loads', authMiddleware, loadsRouter);
 
 module.exports = {
   apiRouter,

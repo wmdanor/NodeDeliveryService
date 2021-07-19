@@ -2,7 +2,7 @@
 const {
   dimensions,
   truckType,
-} = require('atoms');
+} = require('./atoms');
 
 const offsetLimit = Joi.object({
   offset: Joi.number().integer().min(0).optional(),
