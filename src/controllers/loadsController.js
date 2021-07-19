@@ -22,6 +22,35 @@ const {
 
 // TODO create logging system
 
+const parseNaturalNumber = (value) => {
+  const parsed = Number.parseInt(value);
+
+  if (Number.isInteger(Number(value)) && value >= 0) {
+    return parsed;
+  }
+
+  throw new Error('Not a natural number');
+};
+
+const parsePagination = (query) => {
+  const parsed = {};
+  const {offset, limit} = query;
+
+  try {
+    parsed.offset = parseNaturalNumber(offset);
+  } catch {
+    parsed.offset = 0;
+  }
+
+  try {
+    parsed.limit = parseNaturalNumber(limit);
+  } catch {
+    parsed.limit = 10;
+  }
+
+  return parsed;
+};
+
 const mapLoad = (load) => {
   return {
     _id: load._id,
@@ -70,7 +99,11 @@ const mapLoads = (loads) => {
 const getLoadsForShipper = async (req, res) => {
   const {userId} = req.user;
 
-  const loads = await getLoadsByShipperId(userId);
+  const options = parsePagination(req.query);
+  options.status = req.query.status;
+
+  const loads = await getLoadsByShipperId(userId, options);
+
 
   res.json({
     loads: mapLoads(loads),
@@ -80,7 +113,10 @@ const getLoadsForShipper = async (req, res) => {
 const getLoadsForDriver = async (req, res) => {
   const {userId} = req.user;
 
-  const loads = await getLoadsByDriverId(userId);
+  const options = parsePagination(req.query);
+  options.status = req.query.status;
+
+  const loads = await getLoadsByDriverId(userId, options);
 
   res.json({
     loads: mapLoads(loads),

@@ -7,11 +7,31 @@ const findDriverTruckId = async (userId) => {
   return truck._id;
 };
 
-// TODO add pagination and filtering
-const getLoadsByShipperId = async (userId) => Load.find({createdBy: userId});
+const getLoadsByShipperId = async (userId, options) => {
+  const query = {
+    createdBy: userId,
+  };
+  if (options.status) {
+    query.status = options.status;
+  }
 
-const getLoadsByDriverId = async (userId) =>
-  Load.find({assignedTo: await findDriverTruckId(userId)});
+  return Load.find(query)
+      .skip(options.offset)
+      .limit(options.limit);
+};
+
+const getLoadsByDriverId = async (userId, options) => {
+  const query = {
+    assignedTo: await findDriverTruckId(userId),
+  };
+  if (options.status) {
+    query.status = options.status;
+  }
+
+  return Load.find(query)
+    .skip(options.offset)
+    .limit(options.limit);
+};
 
 const addLoad = async ({
   createdBy,
