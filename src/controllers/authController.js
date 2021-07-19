@@ -6,23 +6,24 @@ const {ArgumentError, BadRequestError} = require('../utils/errors');
 
 const registerUser = async (req, res) => {
   const {
-    username,
+    email,
     password,
+    role,
   } = req.body;
 
-  await addUser({username, password});
+  await addUser({email, password, role});
 
   res.json({message: 'Success'});
 };
 
 const loginUser = async (req, res) => {
   const {
-    username,
+    email,
     password,
   } = req.body;
 
   try {
-    const token = await getUserToken({username, password});
+    const token = await getUserToken({email, password});
 
     res.json({
       message: 'Success',

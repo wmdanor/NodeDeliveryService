@@ -15,15 +15,17 @@ const getCurrentUser = async (req, res) => {
   }
 
   const {
-    username,
+    email,
     createdDate,
+    role,
   } = user;
 
   res.json({
     user: {
       _id: userId,
-      username,
-      createdDate,
+      email,
+      created_date: createdDate,
+      role,
     },
   });
 };
@@ -33,7 +35,7 @@ const deleteCurrentUser = async (req, res) => {
 
   await deleteUserById(userId);
 
-  res.json({message: 'Success'});
+  res.json({message: 'Profile deleted successfully'});
 };
 
 const changeCurrentUserPassword = async (req, res) => {
@@ -42,7 +44,7 @@ const changeCurrentUserPassword = async (req, res) => {
   try {
     await updateUserPassword(userId, req.body);
 
-    res.json({message: 'Success'});
+    res.json({message: 'Password changed successfully'});
   } catch (err) {
     if (err instanceof ArgumentError) {
       throw new BadRequestError(err.message);

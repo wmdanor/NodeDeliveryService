@@ -5,10 +5,11 @@ const {ArgumentError} = require('../utils/errors');
 
 const User = require('../models/user');
 
-const addUser = async ({email, password}) => {
+const addUser = async ({email, password, role}) => {
   const user = new User({
     email,
     passwordHash: await bcrypt.hash(password, 10),
+    role,
   });
 
   await user.save();

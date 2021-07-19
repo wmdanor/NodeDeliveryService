@@ -7,6 +7,7 @@ const findDriverTruckId = async (userId) => {
   return truck._id;
 };
 
+// TODO add pagination and filtering
 const getLoadsByShipperId = async (userId) => Load.find({createdBy: userId});
 
 const getLoadsByDriverId = async (userId) =>

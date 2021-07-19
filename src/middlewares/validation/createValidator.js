@@ -1,4 +1,6 @@
-﻿/**
+﻿const {BadRequestError} = require('../../utils/errors');
+
+/**
  * Creating validating middleware function
  *
  * @param {Joi.AnySchema} schema Joi schema.
@@ -10,7 +12,7 @@ function createBodyValidator(schema) {
       await schema.validateAsync(req.body);
       next();
     } catch (err) {
-      next(err);
+      next(new BadRequestError(err.message));
     }
   };
 }
@@ -27,7 +29,7 @@ function createQueryValidator(schema) {
       await schema.validateAsync(req.query);
       next();
     } catch (err) {
-      next(err);
+      next(new BadRequestError(err.message));
     }
   };
 }
