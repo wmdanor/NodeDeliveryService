@@ -1,48 +1,48 @@
-﻿const mongoose = require('mongoose');
+﻿// const mongoose = require('mongoose');
+//
+// const {dbConnectionString} = require('./utils/staticData');
+//
+// mongoose.connect(dbConnectionString, {
+//   useNewUrlParser: true, useUnifiedTopology: true,
+// }).then(() => {
+//   console.log('DB connection established');
+//
+//   get().then();
+// }).catch(() => {
+//   console.error('Failed to establish DB connection');
+// });
+//
+// const get = async () => {
+//   const Test = mongoose.model('Test', {
+//     prop: {
+//       type: String,
+//       required: true,
+//     },
+//   });
+//
+//   const test = new Test({
+//     prop: 'test',
+//   });
+//
+//   // await test.save();
+//
+//   // const u = await User.findOne({email: 'example@gmail.com'});
+//   // console.log(u, u._id);
+//   const q = await Test.findByIdAndUpdate('60f5aeb7f32cf62b64688363', {prop: 'yy'});
+//   console.log(q);
+// };
 
-const {dbConnectionString} = require('./utils/staticData');
-
-mongoose.connect(dbConnectionString, {
-  useNewUrlParser: true, useUnifiedTopology: true,
-}).then(() => {
-  console.log('DB connection established');
-
-  get().then();
-}).catch(() => {
-  console.error('Failed to establish DB connection');
-});
-
-const get = async () => {
-  const User = mongoose.model('User', {
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    passwordHash: {
-      type: String,
-      required: true,
-    },
-    role: {
-      type: String,
-      enum: ['SHIPPER', 'DRIVER'],
-      required: true,
-    },
-
-    createdDate: {
-      type: Date,
-      default: Date.now(),
-    },
-  });
-
-  const user = new User({
-    email: 'example@gmail.com',
-    passwordHash: 'hjchdkjshjkhjksdah',
-    role: 'SHIPPER',
-  });
-
-  // await user.save();
-
-  const u = await User.findOne({email: 'example@gmail.com'});
-  console.log(u, u._id);
+const func2 = async () => {
+  return 2;
 };
+
+const func = async () => {
+  return func2();
+};
+
+const main = async () => {
+  const v = await func();
+  console.log(v);
+};
+
+main();

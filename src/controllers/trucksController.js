@@ -64,7 +64,11 @@ const updateTruckByIdForDriver = async (req, res) => {
   const {userId} = req.user;
   const {id} = req.params;
 
-  await updateTruckByDriverId(id, userId, req.body);
+  const truck = await updateTruckByDriverId(id, userId, req.body);
+
+  if (!truck) {
+    throw new BadRequestError('Truck with such id not found.');
+  }
 
   res.json({
     message: 'Truck details changed successfully',
@@ -75,7 +79,11 @@ const deleteTruckByIdForDriver = async (req, res) => {
   const {userId} = req.user;
   const {id} = req.params;
 
-  await deleteTruckByDriverId(id, userId);
+  const truck = await deleteTruckByDriverId(id, userId);
+
+  if (!truck) {
+    throw new BadRequestError('Truck with such id not found.');
+  }
 
   res.json({
     message: 'Truck deleted successfully',
@@ -86,7 +94,11 @@ const assignTruckByIdForDriver = async (req, res) => {
   const {userId} = req.user;
   const {id} = req.params;
 
-  await assignTruckByDriverId(id, userId);
+  const truck = await assignTruckByDriverId(id, userId);
+
+  if (!truck) {
+    throw new BadRequestError('Truck with such id not found.');
+  }
 
   res.json({
     message: 'Truck assigned successfully',

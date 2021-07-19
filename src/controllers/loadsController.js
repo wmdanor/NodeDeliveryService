@@ -20,6 +20,8 @@ const {
   mapTruck,
 } = require('../controllers/trucksController').utils;
 
+// TODO create logging system
+
 const mapLoad = (load) => {
   return {
     _id: load._id,
@@ -87,9 +89,24 @@ const getLoadsForDriver = async (req, res) => {
 
 const addLoadForShipper = async (req, res) => {
   const {userId} = req.user;
-  const load = {};
+  const {
+    name,
+    payload,
+    // eslint-disable-next-line camelcase
+    pickup_address,
+    // eslint-disable-next-line camelcase
+    delivery_address,
+    dimensions,
+  } = res.body;
+  const load = {
+    createdBy: userId,
+    name,
+    payload,
+    pickupAddress: pickup_address,
+    deliveryAddress: delivery_address,
+    dimensions,
+  };
 
-  // TODO
   await addLoad(load);
 
   res.json({
@@ -185,9 +202,13 @@ const getLoadByIdForDriver = async (req, res) => {
 const updateLoadByIdForShipper = async (req, res) => {
   const {userId} = req.user;
   const {id} = req.params;
-  const load = reverseMapLoad(req.body);
+  const newLoad = reverseMapLoad(req.body);
 
-  await updateLoadByShipperId(id, userId, load);
+  const load = await updateLoadByShipperId(id, userId, newLoad);
+
+  if (!load) {
+    throw new BadRequestError('Load with such id not found');
+  }
 
   res.json({
     message: 'Load details changed successfully',
@@ -198,7 +219,11 @@ const deleteLoadByIdForShipper = async (req, res) => {
   const {userId} = req.user;
   const {id} = req.params;
 
-  await deleteLoadByShipperId(id, userId);
+  const load = await deleteLoadByShipperId(id, userId);
+
+  if (!load) {
+    throw new BadRequestError('Load with such id not found');
+  }
 
   res.json({
     message: 'Load deleted successfully',
@@ -247,7 +272,7 @@ const postLoadByIdForShipper = async (req, res) => {
   // truck found -> truck status 'OL', load status 'ASSIGNED'
   // 6. set load field assignedTo and state to 'En route to Pick Up'
 
-  // TODO: ALSO - create driver middleware that blocks all profile changes
+  // TODO: create driver middleware that blocks all profile changes
 
   // 1 ------------------------------------------------------------
   const {userId} = req.user;
