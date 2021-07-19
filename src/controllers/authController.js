@@ -13,7 +13,7 @@ const registerUser = async (req, res) => {
 
   await addUser({email, password, role});
 
-  res.json({message: 'Success'});
+  res.json({message: 'Profile created successfully'});
 };
 
 const loginUser = async (req, res) => {
