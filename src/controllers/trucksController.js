@@ -100,4 +100,7 @@ module.exports = {
   updateTruckByIdForDriver,
   deleteTruckByIdForDriver,
   assignTruckByIdForDriver,
+  utils: {
+    mapTruck,
+  },
 };
