@@ -11,8 +11,6 @@ mongoose.connect(dbConnectionString, {
   mongoose.connection.dropCollection('trucks', (err, result) => {});
   mongoose.connection.dropCollection('trucktypes', (err, result) => {});
   mongoose.connection.dropCollection('loads', (err, result) => {});
-
-  process.exit();
 }).catch(() => {
   console.error('Failed to establish DB connection');
 });
