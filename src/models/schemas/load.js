@@ -23,6 +23,7 @@ const Load = new mongoose.Schema({
   state: {
     type: String,
     enum: [
+      null,
       'En route to Pick Up',
       'Arrived to Pick Up',
       'En route to delivery',

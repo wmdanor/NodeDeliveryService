@@ -133,7 +133,7 @@ const addLoadForShipper = async (req, res) => {
     // eslint-disable-next-line camelcase
     delivery_address,
     dimensions,
-  } = res.body;
+  } = req.body;
   const load = {
     createdBy: userId,
     name,
