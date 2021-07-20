@@ -10,12 +10,12 @@ const offsetLimit = Joi.object({
 });
 
 const loadStatus = Joi.object({
-  type: Joi.string().valid(
+  status: Joi.string().valid(
       'NEW',
       'POSTED',
       'ASSIGNED',
       'SHIPPED',
-  ).required(),
+  ).optional(),
 });
 
 const signUp = Joi.object({
