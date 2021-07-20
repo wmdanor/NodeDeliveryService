@@ -320,7 +320,7 @@ const postLoadByIdForShipper = async (req, res) => {
     throw new BadRequestError('Load with such id not found');
   }
 
-  if (load.status !== 'NEW' || load.status !== 'POSTED') {
+  if (load.status !== 'NEW' && load.status !== 'POSTED') {
     throw new BadRequestError(
         `Load with '${load.status}' status cannot be posted`,
     );
