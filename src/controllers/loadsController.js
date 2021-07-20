@@ -4,6 +4,7 @@ const {
   getLoadsByDriverId,
   addLoad,
   getActiveLoadByDriverId,
+  assignLoadTo,
   setLoadStatus,
   setLoadState,
   getLoadByShipperId,
@@ -341,7 +342,8 @@ const postLoadByIdForShipper = async (req, res) => {
     driverFound = false;
   } else {
     await setTruckStatus(suitableTruck._id, 'OL');
-    await setLoadStatus(id, 'ASSIGNED');
+    // await setLoadStatus(id, 'ASSIGNED');
+    await assignLoadTo(id, suitableTruck._id);
 
     // 6 ----------------------------------------------------------
     await setLoadState(id, 'En route to Pick Up');

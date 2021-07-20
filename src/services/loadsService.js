@@ -29,8 +29,8 @@ const getLoadsByDriverId = async (userId, options) => {
   }
 
   return Load.find(query)
-    .skip(options.offset)
-    .limit(options.limit);
+      .skip(options.offset)
+      .limit(options.limit);
 };
 
 const addLoad = async ({
@@ -58,6 +58,9 @@ const getActiveLoadByDriverId = async (userId) =>
     assignedTo: await findDriverTruckId(userId),
     status: 'ASSIGNED',
   });
+
+const assignLoadTo = async (id, assignedTo) =>
+  Load.findByIdAndUpdate(id, {assignedTo, status: 'ASSIGNED'});
 
 const setLoadStatus = async (id, status) =>
   Load.findByIdAndUpdate(id, {status});
@@ -97,6 +100,7 @@ module.exports = {
   getLoadsByDriverId,
   addLoad,
   getActiveLoadByDriverId,
+  assignLoadTo,
   setLoadStatus,
   setLoadState,
   getLoadByShipperId,
