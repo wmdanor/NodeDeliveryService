@@ -183,7 +183,7 @@ const iterateActiveLoadStateForDriver = async (req, res) => {
 
   let nextState = 'Arrived to delivery';
 
-  if (load.state === states[3]) { // if last state
+  if (load.state === states[2]) { // if pre-last state
     await setTruckStatus(load.assignedTo, 'IS');
     await setLoadStatus(load._id, 'SHIPPED');
   } else { // every else states
