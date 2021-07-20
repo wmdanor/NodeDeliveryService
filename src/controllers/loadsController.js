@@ -308,7 +308,7 @@ const postLoadByIdForShipper = async (req, res) => {
   // truck found -> truck status 'OL', load status 'ASSIGNED'
   // 6. set load field assignedTo and state to 'En route to Pick Up'
 
-  // TODO: create driver middleware that blocks all profile changes
+  // TODO: create driver middleware that blocks all profile changes if on load
 
   // 1 ------------------------------------------------------------
   const {userId} = req.user;

@@ -8,13 +8,13 @@ const app = express();
 
 app.use(main);
 
-mongoose.connect(dbConnectionString, {
-  useNewUrlParser: true, useUnifiedTopology: true,
-}).then(() => {
-  console.log('DB connection established');
-}).catch(() => {
-  console.error('Failed to establish DB connection');
-});
+// mongoose.connect(dbConnectionString, {
+//   useNewUrlParser: true, useUnifiedTopology: true,
+// }).then(() => {
+//   console.log('DB connection established');
+// }).catch(() => {
+//   console.error('Failed to establish DB connection');
+// });
 
 // module.exports = app;
 //
@@ -30,12 +30,22 @@ mongoose.connect(dbConnectionString, {
 //   }
 // }
 
-const port = process.env.PORT || 8080;
+const start = async () => {
+  try {
+    await mongoose.connect(dbConnectionString, {
+      useNewUrlParser: true, useUnifiedTopology: true,
+    });
 
-try {
-  app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
-  });
-} catch (err) {
-  console.error('Failed to start the server - ', err.message);
-}
+    const port = process.env.PORT || 8080;
+
+    app.listen(port, () => {
+      console.log('Server started');
+    });
+  } catch (err) {
+    console.error('Failed to start the server - ', err.message);
+  }
+};
+
+start().then(() => {
+  console.log('End.');
+});

@@ -37,6 +37,7 @@ const loginUser = async (req, res) => {
   }
 };
 
+// smtp required
 const restorePassword = async (req, res) => {
   // TODO
 };
