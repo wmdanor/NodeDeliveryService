@@ -20,7 +20,7 @@ const {
   deleteLoadByIdForShipper,
   postLoadByIdForShipper,
   getShippingInfoByIdForShipper,
-} = require('../controllers/LoadsController');
+} = require('../controllers/loadsController');
 const {
   postPutLoadValidator,
   offsetLimitQueryValidator,
