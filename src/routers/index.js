@@ -36,6 +36,8 @@ main.use((req, res, next) => {
 main.use((err, req, res, next) => {
   const {message} = err;
 
+  console.log(message);
+
   if (err instanceof HttpError) {
     res.status(err.statusCode).json({message});
   } else {
