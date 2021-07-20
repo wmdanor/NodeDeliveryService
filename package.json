@@ -4,7 +4,7 @@
   "description": "Delivery service",
   "main": "./src/index.js",
   "scripts": {
-    "start": "node ./src",
+    "start": "node ./src/start",
     "start:dev": "nodemon ./src",
     "test": "nodemon ./src/test.js",
     "dropdb": "node ./src/dropTables.js"
