@@ -2,7 +2,11 @@
   addUser,
   getUserToken,
 } = require('../services/usersService');
-const {ArgumentError, BadRequestError} = require('../utils/errors');
+const {
+  ArgumentError,
+  BadRequestError,
+  InternalServerError,
+} = require('../utils/errors');
 
 const registerUser = async (req, res) => {
   const {
@@ -38,8 +42,10 @@ const loginUser = async (req, res) => {
 };
 
 // smtp required
+// token access system remake required
 const restorePassword = async (req, res) => {
-  // TODO
+  // TODO implement reset password
+  throw new InternalServerError('Not implemented');
 };
 
 module.exports = {
