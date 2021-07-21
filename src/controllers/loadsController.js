@@ -22,8 +22,6 @@ const {
   mapTruck,
 } = require('../controllers/trucksController').utils;
 
-// TODO create logging system
-
 const parseNaturalNumber = (value) => {
   const parsed = Number.parseInt(value);
 

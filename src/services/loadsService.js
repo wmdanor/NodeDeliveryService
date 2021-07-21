@@ -105,8 +105,6 @@ const logMessageById = async (id, message) => {
     return null;
   }
 
-  console.log(load);
-
   load.logs.push({message});
 
   await load.save();
