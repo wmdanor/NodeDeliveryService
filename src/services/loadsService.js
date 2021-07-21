@@ -99,11 +99,13 @@ const deleteLoadByShipperId = async (id, userId) =>
   Load.findOneAndDelete({_id: id, createdBy: userId});
 
 const logMessageById = async (id, message) => {
-  const load = Load.findById(id);
+  const load = await Load.findById(id);
 
   if (!load) {
     return null;
   }
+
+  console.log(load);
 
   load.logs.push({message});
 
