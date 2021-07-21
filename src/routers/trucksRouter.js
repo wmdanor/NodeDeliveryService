@@ -12,6 +12,7 @@ const {
 const {
   postPutTruckValidator,
 } = require('../middlewares/validation');
+const {nameMiddleware} = require('../middlewares/nameMiddleware');
 
 const trucksRouter = new express.Router();
 
@@ -29,18 +30,18 @@ trucksRouter.get(
 );
 trucksRouter.put(
     '/:id',
-    driverAuthMiddleware, postPutTruckValidator,
+    driverAuthMiddleware, postPutTruckValidator, nameMiddleware,
     asyncWrapper(updateTruckByIdForDriver),
 );
 trucksRouter.delete(
     '/:id',
-    driverAuthMiddleware,
+    driverAuthMiddleware, nameMiddleware,
     asyncWrapper(deleteTruckByIdForDriver),
 );
 
 trucksRouter.post(
     '/:id/assign',
-    driverAuthMiddleware,
+    driverAuthMiddleware, nameMiddleware,
     asyncWrapper(assignTruckByIdForDriver),
 );
 

@@ -6,11 +6,12 @@ const {
   changeCurrentUserPassword,
 } = require('../controllers/usersController');
 const {changePasswordValidator} = require('../middlewares/validation');
+const {nameMiddleware} = require('../middlewares/nameMiddleware');
 
 const usersRouter = new express.Router();
 
 usersRouter.get('/me', asyncWrapper(getCurrentUser));
-usersRouter.delete('/me', asyncWrapper(deleteCurrentUser));
+usersRouter.delete('/me', nameMiddleware, asyncWrapper(deleteCurrentUser));
 usersRouter.patch(
     '/me',
     changePasswordValidator,

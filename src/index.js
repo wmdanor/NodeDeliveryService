@@ -29,6 +29,3 @@ if (require.main === module) {
     console.error('Failed to start the server - ', err.message);
   }
 }
-
-// TODO create readme
-// TODO create api docs

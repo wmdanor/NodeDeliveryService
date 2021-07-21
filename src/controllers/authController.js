@@ -43,6 +43,7 @@ const loginUser = async (req, res) => {
 
 // smtp required
 // token access system remake required
+// won't be implemented
 const restorePassword = async (req, res) => {
   // TODO implement reset password
   throw new InternalServerError('Not implemented');
