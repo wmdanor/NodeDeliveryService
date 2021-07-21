@@ -4,6 +4,10 @@ const {getAssignedTruckByDriverId} = require('./trucksService');
 const findDriverTruckId = async (userId) => {
   const truck = await getAssignedTruckByDriverId(userId);
 
+  if (!truck) {
+    return null;
+  }
+
   return truck._id;
 };
 
