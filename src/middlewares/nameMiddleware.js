@@ -2,6 +2,8 @@
 const {getActiveLoadByDriverId} = require('../services/loadsService');
 
 const nameMiddleware = async (req, res, next) => {
+  next();
+  return;
   const {userId} = req.user;
 
   try {
