@@ -1,25 +1,23 @@
 ﻿const {BadRequestError} = require('../utils/errors');
 const {getActiveLoadByDriverId} = require('../services/loadsService');
 
-const nameMiddleware = async (req, res, next) => {
-  next();
-  return;
+const nameMiddleware = (req, res, next) => {
   const {userId} = req.user;
 
-  try {
-    const load = await getActiveLoadByDriverId(userId);
+  const promise = getActiveLoadByDriverId(userId);
 
-    if (load) {
-      next(new BadRequestError(
-          'Driver is not able able to change any profile ' +
-          'or his trucks info while he is on load',
-      ));
-    } else {
-      next();
-    }
-  } catch (err) {
-    next(err);
-  }
+  promise
+      .then((load) => {
+        if (!load) {
+          next();
+        } else {
+          throw new BadRequestError(
+              'Driver is not able able to change any profile ' +
+              'or his trucks info while he is on load',
+          );
+        }
+      })
+      .catch(next);
 };
 
 module.exports = {
