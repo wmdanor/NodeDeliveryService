@@ -11,6 +11,7 @@ const {
   getLoadByDriverId,
   updateLoadByShipperId,
   deleteLoadByShipperId,
+  logMessageById,
 } = require('../services/loadsService');
 const {
   getAvailableTrucks,
@@ -174,6 +175,8 @@ const iterateActiveLoadStateForDriver = async (req, res) => {
     throw new BadRequestError('Driver does not have an active load');
   }
 
+  const {assignedTo, _id, state} = load;
+
   const states = [
     'En route to Pick Up', // 0
     'Arrived to Pick Up', // 1
@@ -182,23 +185,24 @@ const iterateActiveLoadStateForDriver = async (req, res) => {
   ];
 
   let nextState = 'Arrived to delivery';
-
-  if (load.state === states[2]) { // if pre-last state
-    await setTruckStatus(load.assignedTo, 'IS');
-    await setLoadStatus(load._id, 'SHIPPED');
+  if (state === states[2]) { // if pre-last state
+    await setTruckStatus(assignedTo, 'IS');
+    await setLoadStatus(_id, 'SHIPPED');
+    await logMessageById(_id, `Load status changed to 'SHIPPED'`);
   } else { // every else states
-    if (load.state === states[0]) {
+    if (state === states[0]) {
       nextState = states[1];
-    } else if (load.state === states[1]) {
+    } else if (state === states[1]) {
       nextState = states[2];
     } /* else if (load.state === states[2]) {
       nextState = states[3];
     }
     not needed because of "let nextState = 'Arrived to delivery';"
     */
-
-    await setLoadState(load._id, nextState);
   }
+
+  await setLoadState(_id, nextState);
+  await logMessageById(_id, `Load state changed to '${nextState}'`);
 
   // TODO: what if it was last state already?
   res.json({
@@ -309,8 +313,6 @@ const postLoadByIdForShipper = async (req, res) => {
   // truck found -> truck status 'OL', load status 'ASSIGNED'
   // 6. set load field assignedTo and state to 'En route to Pick Up'
 
-  // TODO: create driver middleware that blocks all profile changes if on load
-
   // 1 ------------------------------------------------------------
   const {userId} = req.user;
   const {id} = req.params;
@@ -329,6 +331,7 @@ const postLoadByIdForShipper = async (req, res) => {
 
   // 2 ------------------------------------------------------------
   await setLoadStatus(id, 'POSTED');
+  await logMessageById(id, `Load status changed to 'POSTED'`);
 
   // 3 ------------------------------------------------------------
   const availableTrucks = await getAvailableTrucks();
@@ -340,13 +343,20 @@ const postLoadByIdForShipper = async (req, res) => {
   let driverFound = true;
   if (suitableTruck === null) {
     driverFound = false;
+    await setLoadStatus(id, 'NEW');
+    await logMessageById(id, `Load status changed to 'NEW'`);
   } else {
     await setTruckStatus(suitableTruck._id, 'OL');
     // await setLoadStatus(id, 'ASSIGNED');
     await assignLoadTo(id, suitableTruck._id);
+    await logMessageById(
+        id,
+        `Load assigned to driver with id ${suitableTruck.assignedTo}`,
+    );
 
     // 6 ----------------------------------------------------------
     await setLoadState(id, 'En route to Pick Up');
+    await logMessageById(id, `Load state changed to 'En route to Pick Up'`);
   }
 
   res.json({

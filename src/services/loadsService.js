@@ -98,6 +98,19 @@ const updateLoadByShipperId = async (id, userId, {
 const deleteLoadByShipperId = async (id, userId) =>
   Load.findOneAndDelete({_id: id, createdBy: userId});
 
+const logMessageById = async (id, message) => {
+  const load = Load.findById(id);
+
+  if (!load) {
+    return null;
+  }
+
+  load.logs.push({message});
+
+  await load.save();
+
+  return load;
+};
 
 module.exports = {
   getLoadsByShipperId,
@@ -111,4 +124,5 @@ module.exports = {
   getLoadByDriverId,
   updateLoadByShipperId,
   deleteLoadByShipperId,
+  logMessageById,
 };
